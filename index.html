@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Love Hearts Bakery Cafe | Bantam, CT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #fff7ed;
+      --blush: #f6d3bd;
+      --rust: #c6534b;
+      --ink: #2b1b1a;
+      --accent: #8c2f2a;
+      --card: #fffaf6;
+      --shadow: 0 12px 40px rgba(24, 15, 10, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+      color: var(--ink);
+      background: radial-gradient(circle at 20% 20%, rgba(246, 211, 189, 0.28), transparent 25%),
+        radial-gradient(circle at 80% 10%, rgba(198, 83, 75, 0.12), transparent 22%),
+        linear-gradient(180deg, #fffdf9 0%, #fff7ed 60%, #fff3e1 100%);
+      overflow-x: hidden
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 250, 246, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(43, 27, 26, 0.06);
+      transition: box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    header.scrolled {
+      box-shadow: 0 10px 30px rgba(24, 15, 10, 0.08);
+      border-color: rgba(43, 27, 26, 0.12);
+    }
+
+    nav {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 5vw;
+    }
+
+    .brand {
+      font-family: 'Playfair Display', serif;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand span {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: linear-gradient(120deg, rgba(198, 83, 75, 0.15), rgba(246, 211, 189, 0.35));
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 8px 10px;
+      border-radius: 12px;
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+      background: rgba(198, 83, 75, 0.08);
+    }
+
+    .order-btn {
+      padding: 10px 16px;
+      background: linear-gradient(135deg, var(--rust), var(--accent));
+      color: #fff;
+      border: none;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(198, 83, 75, 0.3);
+      transition: transform 0.15s ease, box-shadow 0.2s ease;
+    }
+
+    .order-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 28px rgba(198, 83, 75, 0.35);
+    }
+
+    .card .order-btn {
+      margin-top: 16px;
+      display: inline-flex;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: rgba(198, 83, 75, 0.1);
+      border: 1px solid rgba(198, 83, 75, 0.2);
+      border-radius: 12px;
+      padding: 8px 10px;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--ink);
+      margin: 4px 0;
+      transition: transform 0.2s ease;
+    }
+
+    .hero {
+      position: relative;
+      padding: clamp(60px, 8vw, 120px) 5vw 60px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+      align-items: center;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 14% auto auto 60%;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(198, 83, 75, 0.18), transparent 60%);
+      filter: blur(8px);
+      pointer-events: none;
+    }
+
+    .hero-text h1 {
+      margin: 0 0 14px;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-text p {
+      max-width: 620px;
+      font-size: 1.02rem;
+      line-height: 1.7;
+      margin: 0 0 18px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(198, 83, 75, 0.12);
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+    }
+
+    .info-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .info-card {
+      background: rgba(255, 250, 246, 0.9);
+      border: 1px solid rgba(43, 27, 26, 0.06);
+      border-radius: 18px;
+      padding: 16px 18px;
+      box-shadow: 0 12px 30px rgba(24, 15, 10, 0.08);
+      line-height: 1.6;
+    }
+
+    .info-card h4 {
+      margin: 0 0 6px;
+      font-family: 'Playfair Display', serif;
+      letter-spacing: 0.02em;
+      font-size: 1.08rem;
+    }
+
+    .info-card p {
+      margin: 0 0 6px;
+      line-height: 1.5;
+      font-size: 0.98rem;
+    }
+
+    .info-card a {
+      font-weight: 700;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .info-card .order-btn {
+      margin-top: 10px;
+      display: inline-flex;
+      color: #fff;
+      background: linear-gradient(135deg, var(--ink), var(--accent));
+      box-shadow: 0 10px 24px rgba(43, 27, 26, 0.22);
+    }
+
+    .hero-visual {
+      position: relative;
+      background: linear-gradient(145deg, rgba(198, 83, 75, 0.14), rgba(246, 211, 189, 0.4));
+      border-radius: 28px;
+      padding: 18px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-visual img {
+      width: 100%;
+      border-radius: 20px;
+      display: block;
+      object-fit: cover;
+      max-height: 420px;
+    }
+
+    .glass-note {
+      position: absolute;
+      inset: auto 18px 18px auto;
+      background: rgba(255, 250, 246, 0.9);
+      border-radius: 16px;
+      padding: 12px 16px;
+      box-shadow: 0 10px 30px rgba(24, 15, 10, 0.12);
+      border: 1px solid rgba(43, 27, 26, 0.06);
+      max-width: 240px;
+      font-size: 0.94rem;
+    }
+
+    section {
+      padding: clamp(60px, 8vw, 100px) 5vw;
+    }
+
+    .section-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      margin: 0;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.7rem, 3vw, 2.3rem);
+      letter-spacing: -0.01em;
+    }
+
+    .lead {
+      max-width: 800px;
+      font-size: 1.02rem;
+      line-height: 1.7;
+      margin: 0 0 12px;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 18px;
+      border: 1px solid rgba(43, 27, 26, 0.06);
+      box-shadow: var(--shadow);
+      line-height: 1.6;
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+    }
+
+    .card p {
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 14px;
+      background: rgba(198, 83, 75, 0.12);
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      font-size: 0.88rem;
+      text-transform: uppercase;
+    }
+
+    .list-block {
+      background: rgba(255, 250, 246, 0.9);
+      border-radius: 18px;
+      padding: 16px 18px;
+      border: 1px solid rgba(43, 27, 26, 0.08);
+      box-shadow: 0 10px 24px rgba(24, 15, 10, 0.08);
+    }
+
+    .list-block h4 {
+      margin: 0 0 6px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+    }
+
+    .list-block ul {
+      margin: 0;
+      padding-left: 18px;
+      line-height: 1.7;
+    }
+
+    .menu-image {
+      width: 100%;
+      border-radius: 18px;
+      object-fit: cover;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(43, 27, 26, 0.08);
+      max-height: 400px;
+    }
+
+    .gallery-preview {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .gallery-preview figure {
+      margin: 0;
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(43, 27, 26, 0.06);
+    }
+
+    .gallery-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.25s ease;
+    }
+
+    .gallery-preview figure:hover img {
+      transform: scale(1.03);
+    }
+
+    .gallery-preview figcaption {
+      position: absolute;
+      inset: auto 10px 10px 10px;
+      background: rgba(43, 27, 26, 0.72);
+      color: #fff9f3;
+      padding: 8px 10px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      letter-spacing: 0.01em;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .contact-card {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 16px 18px;
+      border: 1px solid rgba(43, 27, 26, 0.06);
+      box-shadow: var(--shadow);
+      line-height: 1.7;
+    }
+
+    footer {
+      padding: 24px 5vw 40px;
+      background: rgba(43, 27, 26, 0.9);
+      color: #fff7ed;
+      text-align: center;
+      letter-spacing: 0.02em;
+    }
+
+    footer a {
+      color: #ffe0cf;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    @media (max-width: 820px) {
+      nav {
+        padding: 12px 4vw;
+      }
+
+    .nav-links {
+        position: absolute;
+        inset: 64px 4vw auto 4vw;
+        background: rgba(255, 250, 246, 0.98);
+        flex-direction: column;
+        padding: 14px;
+        border-radius: 16px;
+        box-shadow: var(--shadow);
+        border: 1px solid rgba(43, 27, 26, 0.08);
+        transform-origin: top right;
+        transform: scaleY(0);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+      }
+
+      nav.open .nav-links {
+        transform: scaleY(1);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .brand {
+        font-size: 0.95rem;
+        letter-spacing: 0.07em;
+      }
+
+      .nav-links a {
+        width: 100%;
+      }
+
+      .order-btn {
+        width: 100%;
+        justify-content: center;
+        display: inline-flex;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header id="home">
+    <nav>
+      <div class="brand">Love Hearts Bakery <span>Cafe</span></div>
+      <button class="menu-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="#cakes">Cakes & Cookies</a></li>
+        <li><a href="#cafe">Cafe Offerings</a></li>
+        <li><a href="photos.html">Photos</a></li>
+        <li><a href="#contact">Visit</a></li>
+        <li><a class="order-btn" href="https://www.clover.com/online-ordering/loveheartsbakerycafe" target="_blank" rel="noopener">Order Online</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-text">
+        <div class="eyebrow">Bantam, Connecticut</div>
+        <h1 id="hero-title">A touch of Love in every bite.</h1>
+        <p>Fresh pastries, specialty cakes, and small-batch cookies served with plenty of heart. Visit us in Bantam, bring a friend, or plan your next celebration with a cake tailored to you.</p>
+        <div class="info-cards">
+          <div class="info-card">
+            <h4>Where to find us</h4>
+            <p>583B Bantam Rd.<br>Bantam, CT 06750<br>860-361-6526<br><a href="mailto:loveheartsbakery@gmail.com">loveheartsbakery@gmail.com</a></p>
+            <a href="https://maps.google.com/?q=Love+Hearts+Bakery+Cafe+583B+Bantam+Rd+Bantam+CT+06750" target="_blank" rel="noopener">Open in Google Maps</a>
+          </div>
+          <div class="info-card">
+            <h4>Order anytime</h4>
+            <p>Choose your favorites ahead, many cakes and cookies can be made vegan or gluten free.</p>
+            <a class="order-btn" href="https://www.clover.com/online-ordering/loveheartsbakerycafe" target="_blank" rel="noopener">Order Online</a>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img src="assets/menu.jpg" alt="Fresh baked pastries on a counter">
+        <div class="glass-note">Small batch baking, seasonal fruits, and classic recipes with a playful twist.</div>
+      </div>
+    </section>
+
+    <section id="cakes" aria-labelledby="cakes-title">
+      <div class="section-header">
+        <div>
+          <div class="eyebrow">Cakes & Cookies</div>
+          <h2 class="section-title" id="cakes-title">Specialty cakes and cookies (vegan and gluten free available)</h2>
+        </div>
+        <span class="pill">Two days notice recommended</span>
+      </div>
+
+      <div class="cards-grid">
+        <article class="card">
+          <h3>The Chocoholica</h3>
+          <p>Deep, dark rich chocolate cake filled with chocolate mousse and covered with decadent chocolate buttercream icing.</p>
+        </article>
+        <article class="card">
+          <h3>Death by Chocolate</h3>
+          <p>Layers of chocolate brownie, crisp chocolate meringue, chocolate mousse, mocha mousse, rich smooth ganache and a bit more mousse.</p>
+        </article>
+        <article class="card">
+          <h3>A Little Fruity</h3>
+          <p>Your choice of yellow or white cake filled with seasonal fruits and whipped cream, topped with whipped cream icing.</p>
+        </article>
+        <article class="card">
+          <h3>Carrot Cake</h3>
+          <p>Moist layers with carrots, walnuts & raisins (with or without nuts/raisins), filled and iced with traditional cream cheese icing.</p>
+        </article>
+        <article class="card">
+          <h3>Lemonade Cake</h3>
+          <p>Smooth lemony pound cake filled with lemon curd and topped with a thin lemon icing.</p>
+        </article>
+        <article class="card">
+          <h3>The Bostonian</h3>
+          <p>Traditional Boston Crème Pie—truly a cake—with buttery layers filled with vanilla pastry cream and topped with chocolate ganache.</p>
+        </article>
+        <article class="card">
+          <h3>A Little Tiramisu</h3>
+          <p>Espresso-soaked yellow cake with mascarpone and cocoa filling; add Kahlua or Sambucca for a grown-up twist.</p>
+        </article>
+        <article class="card">
+          <h3>Chocolate Guinness Cake</h3>
+          <p>Four-layer cake with the essence of Guinness Stout beer, layered with deep chocolate ganache.</p>
+        </article>
+        <article class="card">
+          <h3>Famous Sweet Potato Cake</h3>
+          <p>Very moist bundt cake, rich with spices and flavored with rum. Surprisingly delightful—everyone comes back for more.</p>
+        </article>
+        <article class="card">
+          <h3>Cheesecake</h3>
+          <p>Traditional 9-inch creamy NY style cheesecake in a crisp graham cracker crust, with or without assorted fruit toppings.</p>
+        </article>
+      </div>
+
+      <div class="two-col" style="margin-top:22px;">
+        <div class="list-block">
+          <h4>Bar Cookies</h4>
+          <ul>
+            <li>Magic Bars – graham cracker, coconut, peanut butter & chocolate chips</li>
+            <li>Pecan Bars</li>
+            <li>German Chocolate Cake Bars – shortbread, chocolate cake, coconut, pecan & caramel topping</li>
+            <li>Tollhouse Bars – with or without nuts</li>
+            <li>Cheesecake Bars – with or without a fruit layer</li>
+            <li>Lemon Bars – shortbread crust with zesty lemon curd</li>
+            <li>Raspberry Bars – shortbread topped with raspberries and streusel</li>
+          </ul>
+        </div>
+        <div class="list-block">
+          <h4>Brownies</h4>
+          <ul>
+            <li>Double chocolate, gooey brownies (with or without nuts)</li>
+            <li>Cappuccino layer brownies – topped with a creamy cappuccino layer</li>
+            <li>Blondies – classic soft blondie with or without nuts</li>
+            <li>Baklava</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="list-block" style="margin-top:16px;">
+        <h4>Cookies</h4>
+        <ul>
+          <li>Coconut macaroons</li>
+          <li>Chocolate chip</li>
+          <li>Chewy Black Dog Ginger cookies</li>
+          <li>Snickerdoodles</li>
+          <li>Holiday cookies</li>
+          <li>Peanut butter cookies</li>
+          <li>Oatmeal raisin</li>
+          <li>Double chocolate chip</li>
+          <li>Italian soft cookies</li>
+          <li>A bit of everything cookie</li>
+          <li>Now famous Ginger cookie</li>
+          <li>Buy singly or by the pound; one week notice for specialty trays.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="cafe" aria-labelledby="cafe-title">
+      <div class="section-header">
+        <div>
+          <div class="eyebrow">Cafe Offerings</div>
+          <h2 class="section-title" id="cafe-title">Coffee, tea, and seasonal bites</h2>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="card">
+          <p class="lead">Stop in for espresso drinks, seasonal specials, and rotating pastries fresh from the oven. Ask about quiches, savory hand pies, and daily surprises.</p>
+          <p>We're happy to pull a double shot, warm a slice, or pack a box to share. Looking for something specific? Call ahead and we'll set it aside.</p>
+          <a class="order-btn" href="https://www.clover.com/online-ordering/loveheartsbakerycafe" target="_blank" rel="noopener">Order ahead</a>
+        </div>
+        <img class="menu-image" src="assets/cafe_menu.png" alt="Cafe menu">
+      </div>
+    </section>
+
+    <section id="gallery" aria-labelledby="gallery-title">
+      <div class="section-header">
+        <div>
+          <div class="eyebrow">Photos</div>
+          <h2 class="section-title" id="gallery-title">Fresh from our ovens</h2>
+        </div>
+        <a class="order-btn" href="photos.html">View full gallery</a>
+      </div>
+      <div class="gallery-preview">
+        <figure>
+          <img src="assets/scooby_cake.jpg" alt="Layered cake with chocolate frosting">
+          <figcaption>Custom cakes made to order</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/cookies.jpg" alt="Assorted cookies on a tray">
+          <figcaption>Cookies by the pound or the piece</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/panini_wrap.jpg" alt="Bakery cafe drinks and pastries">
+          <figcaption>Cozy cafe moments in Bantam</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="contact" aria-labelledby="contact-title">
+      <div class="section-header">
+        <div>
+          <div class="eyebrow">Visit</div>
+          <h2 class="section-title" id="contact-title">Come by the cafe</h2>
+        </div>
+        <a class="order-btn" href="https://www.clover.com/online-ordering/loveheartsbakerycafe" target="_blank" rel="noopener">Order online</a>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <strong>Where</strong><br>
+          583B Bantam Rd.<br>
+          Bantam, CT 06750<br>
+          <a href="https://maps.google.com/?q=Love+Hearts+Bakery+Cafe+583B+Bantam+Rd+Bantam+CT+06750" target="_blank" rel="noopener">Open in Google Maps</a>
+        </div>
+        <div class="contact-card">
+          <strong>Contact</strong><br>
+          860-361-6526<br>
+          <a href="mailto:loveheartsbakery@gmail.com">loveheartsbakery@gmail.com</a>
+        </div>
+        <div class="contact-card">
+          <strong>Orders & Catering</strong><br>
+          Specialty cakes and cookies can be made vegan or gluten free with advance notice. One week notice for trays.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Love Hearts Bakery Cafe · 583B Bantam Rd., Bantam, CT · <a href="tel:18603616526">860-361-6526</a> · <a href="mailto:loveheartsbakery@gmail.com">loveheartsbakery@gmail.com</a>
+  </footer>
+
+  <script>
+    const nav = document.querySelector('nav');
+    const toggle = document.querySelector('.menu-toggle');
+    const links = document.querySelector('.nav-links');
+
+    toggle.addEventListener('click', () => {
+      nav.classList.toggle('open');
+    });
+
+    links.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('open');
+      });
+    });
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 10) {
+        nav.parentElement.classList.add('scrolled');
+      } else {
+        nav.parentElement.classList.remove('scrolled');
+      }
+    });
+  </script>
+</body>
+</html>
